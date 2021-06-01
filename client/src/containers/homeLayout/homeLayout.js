@@ -10,6 +10,7 @@ import FriendList from "../../components/FriendList/friendList";
 import Post from "../../components/Post/post";
 import AdminPanel from "../../components/AdminPanel/adminPanel";
 import Spinner from "../../components/Spinner/Spinner";
+import StaticComponent from "../../components/StaticComponent/staticComponent"
 import * as actionTypes from "../../store/actions/index";
 
 import classes from "./homeLayout.module.css";
@@ -120,6 +121,7 @@ useEffect(() => {
         <div className={classes.container}>
           <div className={classes.leftSide}>
             <HomeUserInfo />
+            <StaticComponent />
           </div>
           <div className={classes.middleSide}>
             {props.checkboxChecked?null:<AddPost clicked={(caption,url)=>onAddPostClickHandler(caption,url)} />}

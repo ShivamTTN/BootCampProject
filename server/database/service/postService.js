@@ -140,6 +140,8 @@ module.exports.getPosts = async (req) => {
   try {
     const {skip,limit} = req.query;
     const { id } = req;
+
+
     // console.log(id , skip,limit)
 
     const getMyFriends =  await friendModel.findOne({user:id},{friends:1,_id:0})

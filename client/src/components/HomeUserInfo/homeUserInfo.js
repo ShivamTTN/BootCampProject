@@ -22,7 +22,7 @@ const HomeUserInfo = (props) => {
           <p className={classes.heading}>
             {props.userData.firstname} {props.userData.lastname}
           </p>
-          <p className={classes.subHeading}>Newly Recruit at TTN</p>
+          <p className={classes.subHeading}>{props.userData.desig?props.userData.desig + " at TTN":"Goal : Please update profile"} </p>
         </div>
         <div className={classes.lowerInfo}>
           <div className={classes.lowerInfoContent}>
