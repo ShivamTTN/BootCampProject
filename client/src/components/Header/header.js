@@ -23,6 +23,7 @@ const header = (props) => {
           personImage={item.profileImage}
           personName={item.firstname + " " + item.lastname}
           receivedFriendList="true"
+          confirm = {(id)=>props.onConfirm(id)}
         />
       );
     });

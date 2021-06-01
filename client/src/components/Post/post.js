@@ -204,6 +204,7 @@ const Post = (props) => {
         <form
           onSubmit={(event) => {
             event.target.reset();
+            setComment("")
             props.onSubmitCommentHandler(event, props._id, comment,props.checkboxChecked,props.skip,props.limit);
           }}
         >
@@ -220,6 +221,7 @@ const Post = (props) => {
               style={{ width: "85%" }}
               className={classes.postInput}
               placeholder="Write a comment..."
+              value={comment}
               onChange={(event) => commentChangedHandler(event)}
             />
             </React.Fragment>

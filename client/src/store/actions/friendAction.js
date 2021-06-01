@@ -2,6 +2,7 @@ import * as actionTypes from "./actionTypes";
 import axios from "axios";
 import Cookies from "js-cookie";
 import M from "materialize-css";
+import * as actionTypesForPost from "../actions/index"
 
 export const fetchFriendStart = () => {
   return {
@@ -190,6 +191,7 @@ export const onConfirmFriendHandler = (friendId) => {
         });
         dispatch(fetchFriendDataWithoutSpinner());
         dispatch(fetchSuggesstedFriendDataWithoutSpinner());
+        dispatch(actionTypesForPost.fetchAllPostData(false,0,2));
       })
       .catch((err) => {
         M.toast({html:"Error Confirming Friends",classes:'rounded red accent-4'})

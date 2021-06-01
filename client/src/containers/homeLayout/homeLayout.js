@@ -20,23 +20,29 @@ const HomeLayout = (props) => {
 
   const [skip,setSkip] = useState(0);
   const [limit,setLimit] = useState(2);
-  const [scrollY, setScrollY] = useState(0);
+  const [postLoading,setPostLoading] = useState(false)
+  // const [scrollY, setScrollY] = useState(0);
   // const [checkbox,setCheckbox] = useState(false)
 
   function logit() {
 
-    setScrollY(window.pageYOffset);
-    // console.log(scrollY);
-    if (scrollY + window.innerHeight >=   document.body.scrollHeight){
+    // setScrollY();
+    // console.log(window.pageYOffset);
+    // console.log(props.postDataLength)
+    if (window.pageYOffset + window.innerHeight ===   document.body.scrollHeight ){
       // console.log(props.posts.length)  
-     
-      // console.log(props.postDataLength)
+    
+      
       if(props.postDataLength>0)
       {
+        setPostLoading(true)
          setSkip(skip+2);
+        //  console.log(skip)
         props.onFetchPostData(props.checkboxChecked,skip+2,limit)
+        setPostLoading(false)
       }
       
+  
       
     }
   }
@@ -51,7 +57,7 @@ useEffect(() => {
   return () => {
     window.removeEventListener("scroll", logit);
   };
-});
+},[props.postDataLength,skip]);
 
 // useEffect(()=>{
 //   // document.addEventListener('scroll', pageEnd);
@@ -72,7 +78,7 @@ useEffect(() => {
   // console.log(scrollHeight)
   // console.log(document.body.scrollTop)
   // console.log(window.innerHeight + scrollY)
-  let page = <Spinner />;
+  let page =<div style={{marginLeft:"50%",marginTop:"200px",width:"100vh"}}> <Spinner /></div>;
 
   if (!props.loadingUser) {
     let posts = <Spinner />
@@ -91,18 +97,26 @@ useEffect(() => {
 
     }
   const onAdminCheckboxChangeHandler = ()=>{
-    setSkip(0)
+   
     props.onCheckboxChangeHandler(!props.checkboxChecked,0,limit)
+    setSkip(0)
   }
 
   const onAddPostClickHandler =(caption,urls)=>{
-    setSkip(0)
+   
     props.onCreatePostClick(caption,urls)
+    setSkip(0)
   }
+  const onConfirmFriendHandler =(id)=>{
+   
+    props.onConfirmFriendClickHandler(id)
+    setSkip(0)
+  }
+
 
     page = (
       <React.Fragment>
-        <Header />
+        <Header onConfirm={(id)=>onConfirmFriendHandler(id)} />
         <div className={classes.container}>
           <div className={classes.leftSide}>
             <HomeUserInfo />
@@ -114,6 +128,8 @@ useEffect(() => {
               <AdminPanel checked = {()=>onAdminCheckboxChangeHandler()}  />
             )}
             {posts}
+            {props.postDataLength > 0 && props.posts.length >1 ? <Spinner /> : null } 
+            
           </div>
           <div className={classes.rightSide}>
             <FriendList heading="Contacts" />
@@ -146,6 +162,9 @@ const mapDispatchToProps = (dispatch) => {
     onCheckboxChangeHandler : (checkedValue,skip,limit)=>dispatch(actionTypes.fetchAllPostData(checkedValue,skip,limit)),
     onCreatePostClick: (caption, url) =>
     dispatch(actionTypes.createPost(caption, url)),
+    onConfirmFriendClickHandler: (id) =>
+      dispatch(actionTypes.onConfirmFriendHandler(id))
+    
     
   };
 };

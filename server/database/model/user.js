@@ -50,20 +50,9 @@ const userSchema = new Schema({
     type: String,
     enum: ["admin", "user"],
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-  updatedAt: {
-    type: Date,
-    default:Date.now,
-  },
 
-},{versionKey:false});
+},  { versionKey: false, timestamps: true });
 
-userSchema.post("update", function () {
-  this.set({ updatedAt: Date.now() });
-});
 
 const userModel = mongoose.model("User", userSchema);
 

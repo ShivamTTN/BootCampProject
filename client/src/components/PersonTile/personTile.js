@@ -49,7 +49,7 @@ const personTile = (props) => {
             type="fevi"
             buttonClass="addFriend"
             feviClass="fas fa-check"
-            clicked={() => props.onConfirmFriendClickHandler(props.personId)}
+            clicked={() => props.confirm(props.personId)}
           />
           <Button
             type="fevi"
@@ -80,7 +80,10 @@ const mapDispatchToProps = (dispatch) => {
     onAddFriendClickHandler: (id) =>
       dispatch(actionTypes.onAddFriendHandler(id)),
     onConfirmFriendClickHandler: (id) =>
-      dispatch(actionTypes.onConfirmFriendHandler(id)),
+      {
+        dispatch(actionTypes.onConfirmFriendHandler(id))
+      },
+      
     onRejectFriendClickHandler: (id) =>
       dispatch(actionTypes.onRejectFriendHandler(id)),
   };

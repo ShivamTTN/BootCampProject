@@ -42,13 +42,13 @@ const AddPost = (props) => {
       });
       return;
     }
-    if (!image) {
-      M.toast({
-        html: "Post Image Cant Be Empty",
-        classes: "rounded #f44336 red",
-      });
-      return;
-    }
+    // if (!image) {
+    //   M.toast({
+    //     html: "Post Image Cant Be Empty",
+    //     classes: "rounded #f44336 red",
+    //   });
+    //   return;
+    // }
 
     props.fetchPostStart();
       const newObj = {
@@ -73,6 +73,7 @@ const AddPost = (props) => {
         })
       )
       // console.log(imgUrls)
+      setCaption("")
       props.clicked(caption,imgUrls)
       // props.onCreatePostClick(caption,imgUrls)
 

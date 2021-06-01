@@ -13,20 +13,9 @@ const commentSchema = Schema({
   comment: {
     type: String,
   },
+},  { versionKey: false, timestamps: true });
 
-  createdAt: {
-    type: Date,
-    default: Date.now(),
-  },
-  updatedAt: {
-    type: Date,
-    default: Date.now(),
-  },
-});
 
-commentSchema.post("update", function () {
-  this.set({ updatedAt: Date.now() });
-});
 
 const commentModel = mongoose.model("Comment", commentSchema);
 

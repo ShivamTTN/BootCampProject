@@ -15,19 +15,7 @@ const likeSchema = Schema({
     enum: ["like", "dislike"],
   },
 
-  createdAt: {
-    type: Date,
-    default: Date.now(),
-  },
-  updatedAt: {
-    type: Date,
-    default: Date.now(),
-  },
-});
-
-likeSchema.post("update", function () {
-  this.set({ updatedAt: Date.now() });
-});
+},  { versionKey: false, timestamps: true });
 
 const likeModel = mongoose.model("Like", likeSchema);
 

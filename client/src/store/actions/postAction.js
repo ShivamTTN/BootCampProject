@@ -30,6 +30,8 @@ export const fetchAllPostSuccessWithChecked = (data, checked) => {
   };
 };
 
+
+
 export const clearPostDataFromStore = () => {
   return {
     type: actionTypes.CLEAR_POST_DATA,
@@ -53,6 +55,20 @@ export const MakeDislikeSuccess = () => {
     type: actionTypes.MAKE_DISLIKE_SUCCESS,
   };
 };
+export const setPostDataLength = () => {
+  return {
+    type: actionTypes.SET_POSTDATA_LENGTH_TO_ZERO,
+  };
+};
+
+export const setCheckboxChecked = (checked) => {
+  return {
+    type: actionTypes.SET_CHECKBOX_CHECKED,
+    checkboxChecked: checked,
+  };
+};
+
+
 
 export const fetchAllPostDataForDelete = () => {
   return (dispatch) => {
@@ -61,6 +77,7 @@ export const fetchAllPostDataForDelete = () => {
     axios
       .get("http://localhost:8000/getReportedPosts", {
         headers: {
+          "Content-Type": "application/json",
           authorization: Cookies.get("token"),
         },
       })
@@ -85,6 +102,7 @@ export const fetchAllPostDataForCreate = () => {
     axios
       .get("http://localhost:8000/getPosts", {
         headers: {
+          "Content-Type": "application/json",
           authorization: Cookies.get("token"),
         },
       })
@@ -110,6 +128,7 @@ export const fetchAllPostData = (checked, skip, limit) => {
   if (checked) {
     console.log("in checked");
     return (dispatch) => {
+      console.log(skip, limit);
       // dispatch(fetchPostStart());
       // console.log(Cookies.get("token"))
       if (skip === 0) {
@@ -118,6 +137,7 @@ export const fetchAllPostData = (checked, skip, limit) => {
       axios
         .get("http://localhost:8000/getReportedPosts", {
           headers: {
+            "Content-Type": "application/json",
             authorization: Cookies.get("token"),
           },
           params: {
@@ -126,11 +146,18 @@ export const fetchAllPostData = (checked, skip, limit) => {
           },
         })
         .then((res) => {
-         
+          if(res.data.length>0)
+          {
             dispatch(fetchAllPostSuccessWithChecked(res.data, checked));
+          }
+          else{
+            dispatch(setCheckboxChecked(checked))
+            dispatch(setPostDataLength())
+          }
           
         })
         .catch((err) => {
+          console.log(err)
           M.toast({
             html: "Error Fetching Post",
             classes: "rounded red accent-4",
@@ -160,8 +187,16 @@ export const fetchAllPostData = (checked, skip, limit) => {
         })
         .then((res) => {
           console.log(res.data);
+          if(res.data.length>0)
+          {
+            dispatch(fetchAllPostSuccessWithChecked(res.data, checked));
+          }
+          else
+          {
+            dispatch(setCheckboxChecked(checked))
+            dispatch(setPostDataLength())
+          }
           
-          dispatch(fetchAllPostSuccessWithChecked(res.data, checked));
           
         })
         .catch((err) => {
@@ -183,6 +218,7 @@ export const fetchAllPostDataWithoutSpinner = (checked,skip,limit) => {
     axios
       .get("http://localhost:8000/getPosts", {
         headers: {
+          "Content-Type": "application/json",
           authorization: Cookies.get("token"),
         },
         params: {
@@ -211,6 +247,7 @@ export const fetchMyPostCountData = () => {
     axios
       .get("http://localhost:8000/getMyPostCount", {
         headers: {
+          "Content-Type": "application/json",
           authorization: Cookies.get("token"),
         },
       })
@@ -230,6 +267,7 @@ export const fetchMyPostCountData = () => {
 
 export const postLikeClicked = (postId,checked,skip,limit) => {
   return (dispatch) => {
+    
     axios
       .post(
         "http://localhost:8000/createLike",

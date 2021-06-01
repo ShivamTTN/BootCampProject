@@ -67,7 +67,7 @@ exports.deletePost = async (req, res) => {
 
 exports.getPosts = async (req, res) => {
   try{
-    const response = await postService.getPosts(req.query);
+    const response = await postService.getPosts(req);
       // console.log(response)
     return res.status(200).json(response);
   }

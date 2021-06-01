@@ -1,6 +1,7 @@
 const { postModel } = require("../model/post");
 const { commentModel } = require("../model/comment");
 const { likeModel } = require("../model/like");
+const { friendModel } = require("../model/friend")
 const { Error } = require("mongoose");
 
 module.exports.createPost = async (req) => {
@@ -135,11 +136,21 @@ module.exports.createDislike = async (req) => {
   }
 };
 
-module.exports.getPosts = async ({skip,limit}) => {
+module.exports.getPosts = async (req) => {
   try {
-    // console.log(skip,limit)
+    const {skip,limit} = req.query;
+    const { id } = req;
+    // console.log(id , skip,limit)
+
+    const getMyFriends =  await friendModel.findOne({user:id},{friends:1,_id:0})
+    // console.log(getMyFriends)
+    getMyFriends.friends.push(id);
     const allPosts = await postModel
-      .find(null, { updatedAt: 0 }, { skip: +skip, limit: +limit })
+      
+      .find({postedBy:{$in:getMyFriends.friends}}, { updatedAt: 0 })
+      // .sort({ createdAt: -1 })
+      .skip(+skip)
+      .limit(+limit)
       .sort({createdAt:-1})
       .populate("postedBy", {
         createdAt: 0,
@@ -148,9 +159,9 @@ module.exports.getPosts = async ({skip,limit}) => {
         email: 0,
         coverImage: 0,
         _id: 0,
-      })
+      });
+      
 
-    // let data = allPosts.slice();
 
     const data = await getNewPostObject(allPosts);
     // console.log(data);
@@ -160,12 +171,17 @@ module.exports.getPosts = async ({skip,limit}) => {
   }
 };
 
-module.exports.getReportedPosts = async ({skip,limit}) => {
+module.exports.getReportedPosts = async ({ skip, limit }) => {
   try {
     // console.log("in report cotroler")
     // console.log(skip,limit)
     const allReportedPosts = await postModel
-      .find({ reportCount: { $gt: 0 } }, { updatedAt: 0 },{ skip: +skip, limit: +limit })
+      .find(
+        { reportCount: { $gt: 0 } },
+        { updatedAt: 0 },
+        { skip: +skip, limit: +limit }
+      )
+      .sort({ reportCount: -1 })
       .populate("postedBy", {
         createdAt: 0,
         updatedAt: 0,
@@ -173,8 +189,8 @@ module.exports.getReportedPosts = async ({skip,limit}) => {
         email: 0,
         coverImage: 0,
         _id: 0,
-      })
-      .sort({ reportCount: -1 });
+      });
+
     // let data = allPosts.slice();
     // console.log(allReportedPosts)
     const data = await getNewPostObject(allReportedPosts);
