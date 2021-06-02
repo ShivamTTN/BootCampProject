@@ -126,9 +126,9 @@ export const fetchAllPostDataForCreate = () => {
 
 export const fetchAllPostData = (checked, skip, limit) => {
   if (checked) {
-    console.log("in checked");
+    // console.log("in checked");
     return (dispatch) => {
-      console.log(skip, limit);
+      // console.log(skip, limit);
       // dispatch(fetchPostStart());
       // console.log(Cookies.get("token"))
       if (skip === 0) {
@@ -167,12 +167,12 @@ export const fetchAllPostData = (checked, skip, limit) => {
     };
   } else {
     return (dispatch) => {
-      console.log("in without checked");
+      // console.log("in without checked");
       // dispatch(fetchPostStart());
       if (skip === 0) {
         dispatch(clearPostDataFromStore());
       }
-      console.log(skip, limit);
+      // console.log(skip, limit);
       // console.log(Cookies.get("token"))
       axios
         .get("http://localhost:8000/getPosts", {
@@ -186,7 +186,7 @@ export const fetchAllPostData = (checked, skip, limit) => {
           },
         })
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           if(res.data.length>0)
           {
             dispatch(fetchAllPostSuccessWithChecked(res.data, checked));

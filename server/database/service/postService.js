@@ -163,9 +163,9 @@ module.exports.getPosts = async (req) => {
         _id: 0,
       });
       
+    
 
-
-    const data = await getNewPostObject(allPosts);
+    const data = await getNewPostObject(allPosts,id);
     // console.log(data);
     return data;
   } catch (err) {
@@ -181,9 +181,10 @@ module.exports.getReportedPosts = async ({ skip, limit }) => {
       .find(
         { reportCount: { $gt: 0 } },
         { updatedAt: 0 },
-        { skip: +skip, limit: +limit }
+        { skip: +skip, limit: +limit , sort:{reportCount : -1} }
+        
       )
-      .sort({ reportCount: -1 })
+      .sort({ createdAt: -1 })
       .populate("postedBy", {
         createdAt: 0,
         updatedAt: 0,
@@ -203,7 +204,7 @@ module.exports.getReportedPosts = async ({ skip, limit }) => {
   }
 };
 
-const getNewPostObject = async (allPosts) => {
+const getNewPostObject = async (allPosts,myId) => {
   try {
     let data = await Promise.all(
       allPosts.map(async (item) => {
@@ -211,20 +212,24 @@ const getNewPostObject = async (allPosts) => {
         let dislikeObject = null;
         let commentObject = null;
         let newObj = null;
-        let likeCount = await getLikesCount(item._id);
-        let dislikeCount = await getDislikesCount(item._id);
+        let likeData = await getLikesData(item._id);
+        let dislikeData = await getDislikesData(item._id);
         let comments = await getComments(item._id);
         likeObject = {
-          like: likeCount,
+          like: likeData,
         };
         dislikeObject = {
-          dislike: dislikeCount,
+          dislike: dislikeData,
         };
         commentObject = {
           comments: comments,
         };
+        myIdObj = {
+          myId : myId
+        }
         return (newObj = {
           ...item.toJSON(),
+          ...myIdObj,
           ...likeObject,
           ...dislikeObject,
           ...commentObject,
@@ -237,22 +242,23 @@ const getNewPostObject = async (allPosts) => {
   }
 };
 
-const getLikesCount = async (id) => {
+const getLikesData = async (id) => {
   try {
     const postLikes = await likeModel
-      .find({ post: id, status: "like" })
-      .countDocuments();
+    .find({ post: id, status: "like" },{createdAt: 0, updatedAt: 0, _id: 0, post: 0,status:0 })
+    .populate("postedBy",{_id:1})
     return postLikes;
   } catch (err) {
     throw err;
   }
 };
 
-const getDislikesCount = async (id) => {
+const getDislikesData = async (id) => {
   try {
     const postDislikes = await likeModel
-      .find({ post: id, status: "dislike" })
-      .countDocuments();
+      .find({ post: id, status: "dislike" },{createdAt: 0, updatedAt: 0, _id: 0, post: 0 })
+      .populate("postedBy",{_id:1})
+      // .countDocuments();
     return postDislikes;
   } catch (err) {
     throw err;

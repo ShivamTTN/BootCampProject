@@ -10,7 +10,7 @@ import classes from "./personalProfileLayout.module.css";
 
 const PersonalProfileLayout = (props) => {
   useEffect(() => {
-    console.log("you ahahahah")
+    // console.log("you ahahahah")
     props.onFetchUserData();
     props.onFetchFriendData();
     props.onFetchSuggesstedFriendData();

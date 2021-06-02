@@ -35,7 +35,7 @@ const PersonalProfileCard = (props) => {
 
   useEffect(() => {
     if (!props.myProfile) {
-      console.log("gg1");
+      // console.log("gg1");
       axios
         .get("http://localhost:8000/getUserData", {
           headers: {
@@ -56,7 +56,7 @@ const PersonalProfileCard = (props) => {
           });
         });
     } else {
-      console.log("gg");
+      // console.log("gg");
       const dateOfBirth = new Date(props.userData.dob);
       let temp =
         dateOfBirth.getFullYear() +
@@ -401,11 +401,12 @@ const PersonalProfileCard = (props) => {
           <p className={classes.subHeading1}>{personInfo.desig?personInfo.desig:"Newer"} at TTN</p>
           <p className={classes.subHeading2}>
             {personInfo.state?personInfo.state:"No Information"} * {personInfo.city?personInfo.city:"No Information"} * {personInfo.friendCount } Freinds
-            <br />
-            <p style={{textTransform:"lowercase",margin:"0",padding:"0"}}>
+         
+
+          </p>
+          <p style={{textTransform:"lowercase",margin:"0",padding:"0"}}>
             {personInfo.alreadyFriends?personInfo.email:null}
             </p>
-          </p>
         </div>
         <div className={classes.lowerInfo}>
           {!personInfo.alreadyFriends ? (
@@ -432,7 +433,7 @@ const PersonalProfileCard = (props) => {
     );
   }
   if (!props.loading && props.userData) {
-    console.log(personInfo);
+    // console.log(personInfo);
     data = (
       <div className={classes.container}>
         <div className={classes.subContainer}>
