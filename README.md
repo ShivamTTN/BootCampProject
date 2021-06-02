@@ -1,23 +1,22 @@
 # BootcampProject
 A social networking website named "Buzz" Allow you to post your most beloved memories.
 
-![](https://img.shields.io/badge/Microverse-blueviolet)
-
-![screenshot](./app_screenshot.png)
-
+<!-- ![](https://img.shields.io/badge/Microverse-blueviolet)
+ -->
+<!-- ![screenshot](./app_screenshot.png)
+ -->
 Additional description about the project and its features.
 
 ## Built With
 
-- Major languages
-- Frameworks
-- Technologies used
+- Major languages - Javascript
+- Frameworks - Express,React.js
 
 ## Live Demo
 
-[Live Demo Link](https://livedemo.com)
+[Live Demo Link](http://buzzbootcampapplication.herokuapp.com/)
 
-
+<!-- 
 ## Getting Started
 
 **This is an example of how you may give instructions on setting up your project locally.**
@@ -69,7 +68,4 @@ Give a ⭐️ if you like this project!
 - Hat tip to anyone whose code was used
 - Inspiration
 - etc
-
-## 📝 License
-
-This project is [MIT](./MIT.md) licensed.
+ -->
