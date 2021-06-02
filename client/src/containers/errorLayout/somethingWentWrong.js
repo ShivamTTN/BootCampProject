@@ -11,6 +11,7 @@ const SomethingWentWrong = (props) => {
       </div>
       <div>
         <p>Something Went Wrong .......</p>
+        <p>Try Login With ToTheNew mailID</p>
       </div>
         <Link to="/" className><i class="fas fa-long-arrow-alt-left"> Go back to home</i></Link>
     </div>
