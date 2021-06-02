@@ -3,6 +3,7 @@ import Button from "../Button/button";
 import { connect } from "react-redux";
 import classes from "./post.module.css";
 import * as actionTypes from "../../store/actions/index";
+import M from "materialize-css";
 
 const Post = (props) => {
   // console.log(props);
@@ -31,7 +32,8 @@ const Post = (props) => {
   const slideWidth = () => {
     return document.querySelector(`.${classes.slide}`).clientWidth;
   };
-
+  // console.log(props.like)
+  // console.log(props.dislike)
   let showComments = <span>No Comments.Be the first to comment</span>;
   if (props.comments.length > 0) {
     showComments = props.comments.map((item) => {
@@ -56,6 +58,58 @@ const Post = (props) => {
   const commentChangedHandler = (event) => {
     setComment(event.target.value);
   };
+
+  const onLikeClick = ()=>{
+    let res = props.like.map(item=>{
+      if(item.postedBy._id === props.myId)
+      {
+
+        return true
+      }
+      else{
+        return false
+      }
+    })
+    if(res.includes(true))
+    {
+      M.toast({
+        html: "You Already Liked The Post",
+        classes: "rounded red accent-4",
+      
+      });
+    }
+    // console.log(res)
+    else{
+      props.onLikeClickHandler(props._id,props.checkboxChecked,props.skip,props.limit)
+    }
+    
+  }
+
+  const onDislikeClick = ()=>{
+
+    let res = props.dislike.map(item=>{
+      if(item.postedBy._id === props.myId)
+      {
+
+        return true
+      }
+      else{
+        return false
+      }
+    })
+    if(res.includes(true))
+    {
+      M.toast({
+        html: "You Already Disliked The Post",
+        classes: "rounded red accent-4",
+      
+      });
+    }
+    // console.log(res)
+    else{
+      props.onDislikeClickHandler(props._id,props.checkboxChecked,props.skip,props.limit)
+    }
+  }
 
   const createdDate = new Date(props.createdAt);
   let etc = createdDate.toDateString();
@@ -166,9 +220,9 @@ const Post = (props) => {
         <div className={classes.countSession}>
           <div className={classes.countSessionLeft}>
             <i className="fas fa-thumbs-up"></i>
-            <span>{props.like}</span>
+            <span>{props.like.length}</span>
             <i className="fas fa-heart-broken"></i>
-            <span>{props.dislike}</span>
+            <span>{props.dislike.length}</span>
           </div>
           <span>{props.comments.length} Comment</span>
         </div>
@@ -180,7 +234,7 @@ const Post = (props) => {
             feviClass="fas fa-thumbs-up"
             buttonClass="postButton"
             text="Like"
-            clicked={() => props.onLikeClickHandler(props._id,props.checkboxChecked,props.skip,props.limit)}
+            clicked={() =>onLikeClick() }
             disabled = {props.checkboxChecked?"disabled":null}
           />
           <Button
@@ -188,7 +242,7 @@ const Post = (props) => {
             feviClass="fas fa-heart-broken"
             buttonClass="postButton"
             text="Dislike"
-            clicked={() => props.onDislikeClickHandler(props._id,props.checkboxChecked,props.skip,props.limit)}
+            clicked={() => onDislikeClick()}
             disabled = {props.checkboxChecked?"disabled":null}
           />
           {/* <Button

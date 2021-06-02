@@ -14,18 +14,18 @@ const staticComponent = (props) => {
           <p className={classes.heading}>
             Recent
           </p>
-          <p className={classes.subHeading}><i class="fab fa-slack-hash"></i> Javascript</p>
-          <p className={classes.subHeading}><i class="fab fa-slack-hash"></i> MongoDB</p>
-          <p className={classes.subHeading}><i class="fab fa-slack-hash"></i> SQL</p>
+          <p className={classes.subHeading}><i className="fab fa-slack-hash"></i> Javascript</p>
+          <p className={classes.subHeading}><i className="fab fa-slack-hash"></i> MongoDB</p>
+          <p className={classes.subHeading}><i className="fab fa-slack-hash"></i> SQL</p>
         </div>
 
         <div className={classes.profileInfo}>
           <p className={classes.heading}>
             Groups
           </p>
-          <p className={classes.subHeading}><i class="fas fa-users"></i> NeedHelp?</p>
-          <p className={classes.subHeading}><i class="fas fa-users"></i> FunFacts</p>
-          <p className={classes.subHeading}><i class="fas fa-users"></i> Advance Problems</p>
+          <p className={classes.subHeading}><i className="fas fa-users"></i> NeedHelp?</p>
+          <p className={classes.subHeading}><i className="fas fa-users"></i> FunFacts</p>
+          <p className={classes.subHeading}><i className="fas fa-users"></i> Advance Problems</p>
         </div>
  
       </div>
