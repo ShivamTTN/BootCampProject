@@ -130,7 +130,7 @@ useEffect(() => {
               <AdminPanel checked = {()=>onAdminCheckboxChangeHandler()}  />
             )}
             {posts}
-            {props.postDataLength > 0 && props.posts.length >1 ? <Spinner /> : null } 
+            {props.postDataLength > 0 && props.posts.length >1 && !props.loadingPost ? <Spinner /> : null } 
             
           </div>
           <div className={classes.rightSide}>
