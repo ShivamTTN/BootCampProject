@@ -135,7 +135,7 @@ useEffect(() => {
           </div>
           <div className={classes.rightSide}>
             <FriendList heading="Contacts" />
-            <FriendList heading="Suggestions" />
+            <FriendList heading="SuggestionsInHome" />
           </div>
         </div>
       </React.Fragment>

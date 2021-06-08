@@ -73,7 +73,7 @@ const Post = (props) => {
     if(res.includes(true))
     {
       M.toast({
-        html: "You Already Liked The Post",
+        html: "Already Liked",
         classes: "rounded red accent-4",
       
       });
@@ -100,7 +100,7 @@ const Post = (props) => {
     if(res.includes(true))
     {
       M.toast({
-        html: "You Already Disliked The Post",
+        html: "Already Disliked",
         classes: "rounded red accent-4",
       
       });
@@ -110,7 +110,26 @@ const Post = (props) => {
       props.onDislikeClickHandler(props._id,props.checkboxChecked,props.skip,props.limit)
     }
   }
-
+  let likedButtonClass = "postButton";
+  let dislikedButtonClass = "postButton";
+  let likeDisable = false;
+  let dislikeDisable = false;
+  props.like.map(item=>{
+    if(item.postedBy._id === props.myId)
+    {
+      likedButtonClass = likedButtonClass + " liked";
+      likeDisable=true;
+      dislikeDisable = false;
+    }
+  })
+  props.dislike.map(item=>{
+    if(item.postedBy._id === props.myId)
+    {
+      dislikedButtonClass = dislikedButtonClass + " disliked";
+      likeDisable=false;
+      dislikeDisable = true;
+    }
+  })
   const createdDate = new Date(props.createdAt);
   let etc = createdDate.toDateString();
   return (
@@ -232,18 +251,18 @@ const Post = (props) => {
           <Button
             type="fevi"
             feviClass="fas fa-thumbs-up"
-            buttonClass="postButton"
+            buttonClass={likedButtonClass}
             text="Like"
             clicked={() =>onLikeClick() }
-            disabled = {props.checkboxChecked?"disabled":null}
+            disabled = {props.checkboxChecked || likeDisable?"disabled":null}
           />
           <Button
             type="fevi"
             feviClass="fas fa-heart-broken"
-            buttonClass="postButton"
+            buttonClass={dislikedButtonClass}
             text="Dislike"
             clicked={() => onDislikeClick()}
-            disabled = {props.checkboxChecked?"disabled":null}
+            disabled = {props.checkboxChecked || dislikeDisable?"disabled":null}
           />
           {/* <Button
             type="fevi"

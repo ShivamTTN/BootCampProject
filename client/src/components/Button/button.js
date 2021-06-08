@@ -18,6 +18,7 @@ const button = (props) => {
         to={props.redirect}
         className={props.buttonClass}
         onClick={props.clicked} onChange={props.changed}
+        disabled={props.disabled}
       >
         {props.text}
       </button>

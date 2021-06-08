@@ -186,7 +186,7 @@ export const fetchAllPostData = (checked, skip, limit) => {
           },
         })
         .then((res) => {
-          // console.log(res.data);
+          console.log(res.data);
           if(res.data.length>0)
           {
             dispatch(fetchAllPostSuccessWithChecked(res.data, checked));
@@ -284,10 +284,10 @@ export const postLikeClicked = (postId,checked,skip,limit) => {
       .then((res) => {
         // console.log(res);
         // dispatch(clearPostDataFromStore());
-        M.toast({
-          html: "Post Liked <i class='fas fa-heart'></i>",
-          classes: "rounded light-green accent-4",
-        });
+        // M.toast({
+        //   html: "Post Liked <i class='fas fa-heart'></i>",
+        //   classes: "rounded light-green accent-4",
+        // });
         dispatch(fetchAllPostDataWithoutSpinner(checked,0,skip+limit));
 
       })
@@ -316,10 +316,10 @@ export const postDisikeClicked = (postId,checked,skip,limit) => {
       .then((res) => {
         // console.log(res);
         // dispatch(clearPostDataFromStore());
-        M.toast({
-          html: "Post Disliked <i class='fas fa-heart-broken'></i>",
-          classes: "rounded red accent-4",
-        });
+        // M.toast({
+        //   html: "Post Disliked <i class='fas fa-heart-broken'></i>",
+        //   classes: "rounded red accent-4",
+        // });
         dispatch(fetchAllPostDataWithoutSpinner(checked,0,skip+limit));
 
       })

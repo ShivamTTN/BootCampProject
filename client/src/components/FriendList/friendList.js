@@ -131,7 +131,7 @@ const FriendList = (props) => {
     let list = null;
     if (props.heading === "Contacts") {
       list = (
-        <div className={classes.subContainer}>
+        <div className={classes.subContainer} style={{maxHeight:"250px"}}>
           <div className={classes.topHeader}>
             <p>{props.heading}</p>
             <div className={classes.searchDropdown}>
@@ -155,9 +155,35 @@ const FriendList = (props) => {
           <div className={classes.persons}>{friendsPersonTiles}</div>
         </div>
       );
-    } else if (props.heading === "Suggestions") {
+    } else if (props.heading === "SuggestionsInHome") {
       list = (
-        <div className={classes.subContainer}>
+        <div className={classes.subContainer} style={{maxHeight:"250px"}}>
+          <div className={classes.topHeader}>
+            <p>Suggestions</p>
+            <div className={classes.searchDropdown}>
+              <Button
+                type="fevi"
+                feviClass="fas fa-search"
+                buttonClass="searchButton"
+              />
+              <div className={classes.searchDropdownContent}>
+                <input
+                  type="text"
+                  name="txtSearch"
+                  className="browser-default"
+                  value={suggSearch}
+                  onChange={(event) => setSuggSearch(event.target.value)}
+                />
+              </div>
+            </div>
+          </div>
+          <div className={classes.persons}>{suggestedFriendPersonTiles}</div>
+        </div>
+      );
+    }
+    else if (props.heading === "Suggestions") {
+      list = (
+        <div className={classes.subContainer} style={{maxHeight:"100%"}}>
           <div className={classes.topHeader}>
             <p>{props.heading}</p>
             <div className={classes.searchDropdown}>

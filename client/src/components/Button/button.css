@@ -107,6 +107,25 @@ button:focus {
   font-weight: 600;
   color: #707070;
 }
+
+.liked
+{
+  color:#227de2;
+  
+}
+.liked:focus
+{
+  color:#227de2 !important;
+  
+}
+.disliked
+{
+  color: #c80000;
+}
+.disliked:focus
+{
+  color: #c80000 !important;
+}
 /* .fa-thumbs-up:hover ,.fa-heart-broken:hover {
   color: #c80000;
 }

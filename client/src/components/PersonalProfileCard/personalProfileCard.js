@@ -424,9 +424,19 @@ const PersonalProfileCard = (props) => {
             feviClass="fas fa-external-link-alt"
             buttonClass="userWebsiteButton"
             text="Visit Website"
-            clicked={() =>
-              window.open("http://" + personInfo.website, "_blank")
-            }
+            clicked={() =>{
+              if(personInfo.website)
+              {
+                window.open("http://" + personInfo.website, "_blank")
+              }
+              else
+              {
+                M.toast({
+                  html: "Website Info Unavailable",
+                  classes: "rounded red accent-4",
+                });
+              }
+            }}
           />
         </div>
       </React.Fragment>

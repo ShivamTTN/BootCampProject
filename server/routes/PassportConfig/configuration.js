@@ -10,10 +10,10 @@ passport.use(
         callbackURL: "/auth/google/callback",
       },
       async function (accessToken, refreshToken, profile, done) {
-        if (profile._json.hd && profile._json.hd === "tothenew.com") {
+        // if (profile._json.hd && profile._json.hd === "tothenew.com") {
           return done(null, profile._json);
-        }
-        return done(null, false, { message: "you must use tothenew email" });
+        // }
+        // return done(null, false, { message: "you must use tothenew email" });
       }
     )
   );
